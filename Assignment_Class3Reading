@@ -1,0 +1,24 @@
+
+1.
+input_webdata.df <- read.csv("C:/Users/Ananthu Ravi/Desktop/Academic/Term 4/AMMA/data_2017/DP_LIVE_04092017212921395.csv")
+input_webdata.df
+View(input_webdata.df)
+View(input_webdata.df)
+input_webdata.df$Flag.Codes=NULL
+
+2.
+library(XML)
+library(RCurl)
+library(rvest)
+install.packages("XML")
+install.packages("rvest")
+install.packages("rcurl")
+cricketmatch<-"https://en.wikipedia.org/wiki/India%E2%80%93Pakistan_cricket_rivalry"
+file<-read_html(cricketmatch)
+file
+tablematch<-html_nodes(file,"table")
+tablematch  
+tablematch1<-html_table(tablematch[2],fill = TRUE)
+View(tablematch1)
+India<-as.data.frame(tablematch1)
+India$ODI[3]
