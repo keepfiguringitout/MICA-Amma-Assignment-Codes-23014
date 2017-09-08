@@ -1,0 +1,9 @@
+1
+install.packages("data.table")
+library("data.table")
+women
+attach(women)
+hmean<-mean(height)
+wmean<-mean(weight)
+women<-subset(women, height>hmean&weight<wmean)
+ nrow(women)   
