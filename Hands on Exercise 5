@@ -1,0 +1,33 @@
+Emp <- read.table(file="C:/Users/Ananthu Ravi/Desktop/Academic/Term 4/AMMA/data_2017/Emp.csv",
+                                header = TRUE, sep = ',') 
+Dept<- read.table(file="C:/Users/Ananthu Ravi/Desktop/Academic/Term 4/AMMA/data_2017/Dept.csv",header = TRUE,sep = ',')
+emp_dept<-merge(Emp,Dept,by="DEPTNO")
+
+
+ install.packages("sqldf")
+ library(sqldf)
+ 
+ names(emp_dept)
+ attach(emp_dept)
+ #Average spend by product
+ avg_loc<- sqldf('select LOC,
+                  avg(SAL) as avg_sal
+                  from emp_dept
+                  group by LOC')
+ View(avg_loc)
+
+attach(Emp)
+manager<-Emp[,c("ENAME","MGR")]
+managercount<-sqldf('select MGR,
+                    count(ENAME) AS COUNT
+                    from manager
+                    group by MGR')
+                    
+attach(managercount)
+managercountordered<-sqldf('select MGR,
+                    COUNT
+                    from managercount
+                    order by COUNT DESC')
+managermax<-head(managercountordered,1)
+View(managermax)
+
